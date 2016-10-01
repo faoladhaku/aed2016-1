@@ -1,5 +1,6 @@
 #ifndef BT
 #define BT
+
 #include "nodot.h"
 template <class T>
 class bt
@@ -9,14 +10,17 @@ public:
   bt(T dato1,T dato2);
   nodot<T>* root;
   nodot<T>* current;
-  void insert(T dato1,T dato2);
-  void insert(T dato1,T dato2,nodot<T>*&node);
+  void insert(string dato1,T dato2);
+  void insert(string dato1,T dato2,nodot<T>*&node);
   nodot<T>* find(T dato1);
   bool find(T dato,nodot<T>*&node);
-  nodot<T>* begin();
+  nodot<T>* mybegin();
   nodot<T>* next();
-  nodot<T>* end();
+  nodot<T>* myend();
   nodot<T>* get_padre(nodot<T>* node);
+  bool terminate();
+  int levenshtein(const string &s1, const string &s2);
+  vector<nodot<T>*> comparation(int ratio, T word);
 };
 
 template <class T>
@@ -27,14 +31,14 @@ bt<T>::bt(T dato1, T dato2)
 }
 
 template <class T>
-void bt<T>::insert(T dato1,T dato2)
+void bt<T>::insert(string dato1,T dato2)
 {
   nodot<T>* nuevo = this->root;
-  add_recursive(dato1,dato2,nuevo);
+  insert(dato1,dato2,nuevo);
 }
 
 template <class T>
-void bt<T>::insert(T dato1,T dato2, nodot<T> *&node)
+void bt<T>::insert(string dato1,T dato2, nodot<T> *&node)
 {
   if(!node)
   {
@@ -45,13 +49,13 @@ void bt<T>::insert(T dato1,T dato2, nodot<T> *&node)
   {
       return;
   }
-  if(node<dato1)
+  if(node->operator <( dato1))
   {
-      add_recursive(dato1,dato2,node->der);
+      insert(dato1,dato2,node->son[1]);
   }
   else
   {
-      add_recursive(dato1,dato2,node->izq);
+      insert(dato1,dato2,node->son[0]);
   }
 }
 
@@ -75,18 +79,18 @@ bool bt<T>::find(T dato1,nodot<T>*&node)
   {
       return true;
   }
-  if(node<dato1)
+  if(node->operator <(dato1))
   {
-      return find_recursive(dato1,node->der);
+      return find(dato1,node->son[1]);
   }
   else
   {
-      return find_recursive(dato1,node->izq);
+      return find(dato1,node->son[0]);
   }
 }
 
 template <class T>
-nodot<T>* bt<T>::begin()
+nodot<T>* bt<T>::mybegin()
 {
   this->current = this->root;
   while(this->current->son[0])
@@ -133,7 +137,7 @@ nodot<T>* bt<T>::next()
           this->current = this->current->son[1];
           while(this->current->son[0])
             {
-              this->current = this->current[0];
+              this->current = this->current->son[0];
             }
           return this->current;
         }
@@ -147,6 +151,7 @@ nodot<T>* bt<T>::next()
             }
         }
     }
+  this->current=nullptr;
   return this->current;
 }
 
@@ -171,7 +176,7 @@ nodot<T>* bt<T>::get_padre(nodot<T> *node)
 }
 
 template <class T>
-nodot<T>* bt<T>::end()
+nodot<T>* bt<T>::myend()
 {
   this->current = this->root;
   while(this->current->son[1])
@@ -179,6 +184,60 @@ nodot<T>* bt<T>::end()
       this->current = this->current->son[1];
     }
   return this->current;
+}
+
+template <class T>
+bool bt<T>::terminate()
+{
+  if(this->current == NULL)
+    {
+      return false;
+    }
+  return true;
+}
+
+template <class T>
+int bt<T>::levenshtein(const string &s1, const string &s2)
+{
+  int N1 = s1.size();
+  int N2 = s2.size();
+  int i, j;
+  vector<int> S(N2+1);
+  for ( i = 0; i <= N2; i++ )
+     S[i] = i;
+
+  for ( i = 0; i < N1; i++ )
+   {
+     S[0] = i+1;
+     int corner = i;
+     for ( j = 0; j < N2; j++ )
+     {
+        int upper = S[j+1];
+        if ( s1[i] == s2[j] )
+           S[j+1] = corner;
+        else
+           S[j+1] = min(S[j], min(upper, corner)) + 1;
+        corner = upper;
+     }
+   }
+  return S[N2];
+}
+
+template <class T>
+vector<nodot<T>*> bt<T>::comparation(int ratio, T word)
+{
+  vector<nodot<T>*> resultados;
+  //find(word);
+  mybegin();
+  while(terminate())
+    {
+      if(levenshtein(word,this->current->dato[0]) <= ratio)
+      {
+         resultados.push_back(this->current);
+      }
+      next();
+    }
+  return resultados;
 }
 
 #endif // BT

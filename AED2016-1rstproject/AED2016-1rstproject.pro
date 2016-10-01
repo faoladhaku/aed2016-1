@@ -22,3 +22,4 @@ HEADERS  += mainwindow.h \
     bt.h \
 
 FORMS    += mainwindow.ui
+CONFIG   += c++11

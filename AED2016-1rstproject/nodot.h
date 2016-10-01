@@ -34,20 +34,25 @@ nodot<T>::nodot(T dato1,T dato2)
 template <class T>
 int nodot<T>::menor(nodot<T> *node, string dato1)
 {
-  int i = node->dato[0].size();
+  string a = node->dato[0];
+  int i = a.size();
   int y = dato1.size();
+  //cout<<i;
   if(i<y)
-    return i;
-  if(y<i)
-    return y;
-
+    {
+      return i;
+    }
+  else if(y<i)
+    {
+      return y;
+    }
 }
 
 template <class T>
 bool nodot<T>::operator< (const string& dato1)
 {
   int size = menor(this,dato1);
-  for(int i=0;i<size;i++)
+  for(int i=0;i<size-1;i++)
     {
       if(this->dato[0][i]<dato1[i])
         return true;
