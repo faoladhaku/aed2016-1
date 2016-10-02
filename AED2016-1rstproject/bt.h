@@ -195,6 +195,55 @@ bool bt<T>::terminate()
     }
   return true;
 }
+<<<<<<< HEAD
+=======
+
+template <class T>
+int bt<T>::levenshtein(const string &s1, const string &s2)
+{
+  int N1 = s1.size();
+  int N2 = s2.size();
+  int i, j;
+  vector<int> S(N2+1);
+  for ( i = 0; i <= N2; i++ )
+     S[i] = i;
+
+  for ( i = 0; i < N1; i++ )
+   {
+     S[0] = i+1;
+     int corner = i;
+     for ( j = 0; j < N2; j++ )
+     {
+        int upper = S[j+1];
+        if ( s1[i] == s2[j] )
+           S[j+1] = corner;
+        else
+           S[j+1] = min(S[j], min(upper, corner)) + 1;
+        corner = upper;
+     }
+   }
+  return S[N2];
+}
+
+template <class T>
+vector<nodot<T>*> bt<T>::comparation(int ratio, T word)
+{
+  vector<nodot<T>*> resultados;
+  //find(word);
+  mybegin();
+  while(terminate())
+    {
+      if(levenshtein(word,this->current->dato[0]) <= ratio)
+      {
+         resultados.push_back(this->current);
+      }
+      next();
+    }
+  return resultados;
+}
+
+#endif // BT
+>>>>>>> d604a7cc13a2425700e397add6b027e968a30168
 
 template <class T>
 int bt<T>::levenshtein(const string &s1, const string &s2)
