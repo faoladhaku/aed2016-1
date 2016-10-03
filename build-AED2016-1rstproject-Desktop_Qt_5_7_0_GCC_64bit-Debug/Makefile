@@ -815,7 +815,9 @@ main.o: ../AED2016-1rstproject/main.cpp ../AED2016-1rstproject/mainwindow.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qinputmethod.h \
 		../AED2016-1rstproject/bt.h \
-		../AED2016-1rstproject/nodot.h
+		../AED2016-1rstproject/nodot.h \
+		../AED2016-1rstproject/list.h \
+		../AED2016-1rstproject/nodo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../AED2016-1rstproject/main.cpp
 
 mainwindow.o: ../AED2016-1rstproject/mainwindow.cpp ../AED2016-1rstproject/mainwindow.h \

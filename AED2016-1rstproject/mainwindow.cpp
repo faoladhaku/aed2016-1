@@ -1,12 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-<<<<<<< HEAD
 #include "list.h"
 #include "bt.h"
-=======
-//#include
->>>>>>> d604a7cc13a2425700e397add6b027e968a30168
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,12 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
 
     QObject::connect(ui->selectButton,SIGNAL(clicked(bool)),this,SLOT(browse()));
-<<<<<<< HEAD
     QObject::connect(ui->generateButton,SIGNAL(clicked(bool)),this,SLOT(generate()));
-=======
 
-    //QString fileName = QFileDialog::getOpenFileName(this,tr("Open Image"), "/home", tr("Text files (*.txt)"));
->>>>>>> d604a7cc13a2425700e397add6b027e968a30168
 }
 
 MainWindow::~MainWindow()
@@ -29,7 +22,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-<<<<<<< HEAD
 void MainWindow::insertAVL(QString word, QString directory, int ratio)
 {
 
@@ -147,19 +139,12 @@ void MainWindow::browse()
 {
     QString directory = QFileDialog::getOpenFileName(this,tr("Open File"), "/home");
     //QString directory = QFileDialog::getExistingDirectory(this,tr("Find Files"), QDir::currentPath());
-=======
-void MainWindow::browse()
-{
-    QString directory = QFileDialog::getExistingDirectory(this,
-                               tr("Find Files"), QDir::currentPath());
->>>>>>> d604a7cc13a2425700e397add6b027e968a30168
 
     if (!directory.isEmpty()) {
         if (ui->dirComboBox->findText(directory) == -1)
             ui->dirComboBox->addItem(directory);
         ui->dirComboBox->setCurrentIndex(ui->dirComboBox->findText(directory));
     }
-<<<<<<< HEAD
 }
 
 void MainWindow::generate()
@@ -179,7 +164,4 @@ void MainWindow::generate()
     }
 
     // ez game
-
-=======
->>>>>>> d604a7cc13a2425700e397add6b027e968a30168
 }
