@@ -20,6 +20,8 @@ HEADERS  += mainwindow.h \
     list.h \
     nodot.h \
     bt.h \
+    RBT.h \
+    AVL.h
 
 FORMS    += mainwindow.ui
 CONFIG   += c++11
