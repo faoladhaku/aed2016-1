@@ -31,13 +31,13 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QComboBox *comboBox;
+    QComboBox *structureComboBox;
     QLabel *label;
     QLabel *label_3;
-    QLineEdit *lineEdit;
+    QLineEdit *word;
     QLabel *label_4;
-    QLineEdit *lineEdit_2;
-    QPushButton *pushButton;
+    QLineEdit *ratio;
+    QPushButton *generateButton;
     QComboBox *dirComboBox;
     QPushButton *selectButton;
     QTableWidget *tableWidget;
@@ -52,27 +52,27 @@ public:
         MainWindow->resize(374, 346);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        comboBox = new QComboBox(centralWidget);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(140, 10, 101, 22));
+        structureComboBox = new QComboBox(centralWidget);
+        structureComboBox->setObjectName(QStringLiteral("structureComboBox"));
+        structureComboBox->setGeometry(QRect(140, 10, 101, 22));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(20, 10, 111, 16));
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(20, 80, 59, 14));
-        lineEdit = new QLineEdit(centralWidget);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(80, 80, 113, 22));
+        word = new QLineEdit(centralWidget);
+        word->setObjectName(QStringLiteral("word"));
+        word->setGeometry(QRect(80, 80, 113, 22));
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setGeometry(QRect(20, 110, 59, 14));
-        lineEdit_2 = new QLineEdit(centralWidget);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(80, 110, 113, 22));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(250, 100, 101, 22));
+        ratio = new QLineEdit(centralWidget);
+        ratio->setObjectName(QStringLiteral("ratio"));
+        ratio->setGeometry(QRect(80, 110, 113, 22));
+        generateButton = new QPushButton(centralWidget);
+        generateButton->setObjectName(QStringLiteral("generateButton"));
+        generateButton->setGeometry(QRect(250, 100, 101, 22));
         dirComboBox = new QComboBox(centralWidget);
         dirComboBox->setObjectName(QStringLiteral("dirComboBox"));
         dirComboBox->setGeometry(QRect(140, 40, 181, 22));
@@ -109,8 +109,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MS", 0));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
+        structureComboBox->clear();
+        structureComboBox->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "AVL", 0)
          << QApplication::translate("MainWindow", "Binary Tree", 0)
          << QApplication::translate("MainWindow", "Red Black Tree", 0)
@@ -119,7 +119,7 @@ public:
         label->setText(QApplication::translate("MainWindow", "Data Estructure:", 0));
         label_3->setText(QApplication::translate("MainWindow", "Word:", 0));
         label_4->setText(QApplication::translate("MainWindow", "Ratio:", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "Generate", 0));
+        generateButton->setText(QApplication::translate("MainWindow", "Generate", 0));
         selectButton->setText(QApplication::translate("MainWindow", "Select file", 0));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Word 1", 0));
