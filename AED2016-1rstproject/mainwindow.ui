@@ -14,11 +14,7 @@
    <string>MS</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-<<<<<<< HEAD
    <widget class="QComboBox" name="structureComboBox">
-=======
-   <widget class="QComboBox" name="comboBox">
->>>>>>> d604a7cc13a2425700e397add6b027e968a30168
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -74,11 +70,7 @@
      <string>Word:</string>
     </property>
    </widget>
-<<<<<<< HEAD
    <widget class="QLineEdit" name="word">
-=======
-   <widget class="QLineEdit" name="lineEdit">
->>>>>>> d604a7cc13a2425700e397add6b027e968a30168
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -101,11 +93,9 @@
      <string>Ratio:</string>
     </property>
    </widget>
-<<<<<<< HEAD
+
    <widget class="QLineEdit" name="ratio">
-=======
-   <widget class="QLineEdit" name="lineEdit_2">
->>>>>>> d604a7cc13a2425700e397add6b027e968a30168
+
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -115,11 +105,8 @@
      </rect>
     </property>
    </widget>
-<<<<<<< HEAD
    <widget class="QPushButton" name="generateButton">
-=======
-   <widget class="QPushButton" name="pushButton">
->>>>>>> d604a7cc13a2425700e397add6b027e968a30168
+
     <property name="geometry">
      <rect>
       <x>250</x>

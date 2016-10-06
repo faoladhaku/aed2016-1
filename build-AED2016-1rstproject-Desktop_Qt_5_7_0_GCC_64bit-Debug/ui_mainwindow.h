@@ -75,7 +75,7 @@ public:
         generateButton->setGeometry(QRect(250, 100, 101, 22));
         dirComboBox = new QComboBox(centralWidget);
         dirComboBox->setObjectName(QStringLiteral("dirComboBox"));
-        dirComboBox->setGeometry(QRect(110, 40, 251, 22));
+        dirComboBox->setGeometry(QRect(140, 40, 181, 22));
         dirComboBox->setEditable(true);
         selectButton = new QPushButton(centralWidget);
         selectButton->setObjectName(QStringLiteral("selectButton"));
