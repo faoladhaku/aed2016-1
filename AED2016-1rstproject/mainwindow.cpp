@@ -85,6 +85,16 @@ void MainWindow::insertRB(QString word, QString directory, int ratio)
 
 }
 
+void MainWindow::insertFH(QString word, QString directory, int ratio)
+{
+
+}
+
+void MainWindow::insertBH(QString word, QString directory, int ratio)
+{
+
+}
+
 void MainWindow::insertBT(QString word, QString directory, int ratio)
 {
     bt<string> ms("mary","ms");
@@ -161,6 +171,8 @@ void MainWindow::generate()
         case 1: {insertBT(word, directory, ratio.toInt()); break;}
         case 2: {insertRB(word, directory, ratio.toInt()); break;}
         case 3: {insertLL(word, directory, ratio.toInt()); break;}
+        case 4: {insertFH(word, directory, ratio.toInt()); break;}
+        case 5: {insertBH(word, directory, ratio.toInt()); break;}
     }
 
     // ez game

@@ -21,7 +21,8 @@ HEADERS  += mainwindow.h \
     nodot.h \
     bt.h \
     RBT.h \
-    AVL.h
+    AVL.h \
+    FibonacciHeap.h
 
 FORMS    += mainwindow.ui
 CONFIG   += c++11

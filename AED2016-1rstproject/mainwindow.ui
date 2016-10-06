@@ -43,6 +43,16 @@
       <string>Linked List</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>Fibonacci Heap</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Binomial Heap</string>
+     </property>
+    </item>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -93,9 +103,7 @@
      <string>Ratio:</string>
     </property>
    </widget>
-
    <widget class="QLineEdit" name="ratio">
-
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -106,7 +114,6 @@
     </property>
    </widget>
    <widget class="QPushButton" name="generateButton">
-
     <property name="geometry">
      <rect>
       <x>250</x>

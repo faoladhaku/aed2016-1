@@ -26,6 +26,8 @@ public:
     void insertBT(QString word, QString directory, int ratio);
     void insertLL(QString word, QString directory, int ratio);
     void insertRB(QString word, QString directory, int ratio);
+    void insertFH(QString word, QString directory, int ratio);
+    void insertBH(QString word, QString directory, int ratio);
 
 private slots:
     void browse();

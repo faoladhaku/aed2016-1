@@ -208,7 +208,8 @@ DIST          = ../../../Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../AED2016-1rstproject/nodot.h \
 		../AED2016-1rstproject/bt.h \
 		../AED2016-1rstproject/RBT.h \
-		../AED2016-1rstproject/AVL.h ../AED2016-1rstproject/main.cpp \
+		../AED2016-1rstproject/AVL.h \
+		../AED2016-1rstproject/FibonacciHeap.h ../AED2016-1rstproject/main.cpp \
 		../AED2016-1rstproject/mainwindow.cpp
 QMAKE_TARGET  = AED2016-1rstproject
 DESTDIR       = 
@@ -542,7 +543,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../AED2016-1rstproject/mainwindow.h ../AED2016-1rstproject/nodo.h ../AED2016-1rstproject/list.h ../AED2016-1rstproject/nodot.h ../AED2016-1rstproject/bt.h ../AED2016-1rstproject/RBT.h ../AED2016-1rstproject/AVL.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../AED2016-1rstproject/mainwindow.h ../AED2016-1rstproject/nodo.h ../AED2016-1rstproject/list.h ../AED2016-1rstproject/nodot.h ../AED2016-1rstproject/bt.h ../AED2016-1rstproject/RBT.h ../AED2016-1rstproject/AVL.h ../AED2016-1rstproject/FibonacciHeap.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../AED2016-1rstproject/main.cpp ../AED2016-1rstproject/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../AED2016-1rstproject/mainwindow.ui $(DISTDIR)/
 
