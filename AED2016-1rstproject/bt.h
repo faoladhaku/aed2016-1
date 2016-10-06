@@ -17,7 +17,7 @@ public:
   nodot<T>* mybegin();
   nodot<T>* next();
   nodot<T>* myend();
-  nodot<T>* get_padre(nodot<T>* node);
+  nodot<T>* get_padre(nodot<T>* node, T dato);
   bool terminate();
   int levenshtein(const string &s1, const string &s2);
   vector<nodot<T>*> comparation(int ratio, T word);
@@ -103,7 +103,8 @@ nodot<T>* bt<T>::mybegin()
 template <class T>
 nodot<T>* bt<T>::next()
 {
-  nodot<T>* padre = get_padre(this->current);
+  nodot<T>* padre = this->root;
+  padre = get_padre(padre,this->current->dato[0]);
   if(this->current == this->root)
     {
       if(this->current->son[1])
@@ -143,7 +144,8 @@ nodot<T>* bt<T>::next()
         }
       while(padre!=this->root)
         {
-          padre = get_padre(padre);
+          nodot<T>* busqueda = this->root;
+          padre = get_padre(busqueda,padre->dato[0]);
           if(this->current<padre)
             {
               this->current = padre;
@@ -156,8 +158,9 @@ nodot<T>* bt<T>::next()
 }
 
 template <class T>
-nodot<T>* bt<T>::get_padre(nodot<T> *node)
+nodot<T>* bt<T>::get_padre(nodot<T> *node, T dato)
 {
+  /*
   if(this->root!=node)
     {
       nodot<T>* padre = this->root;
@@ -173,6 +176,15 @@ nodot<T>* bt<T>::get_padre(nodot<T> *node)
       get_padre(padre->son[1]);
     }
   return node;
+  */
+  if(this->root->dato[0] == dato)
+    return node;
+  if( (node->son[0] !=0 and node->son[0]->dato[0]==dato) or (node->son[1] !=0 and node->son[1]->dato[0]==dato) )
+    return node;
+  if( node->operator <(dato) )
+    return get_padre(node->son[1],dato);
+  else
+    return get_padre(node->son[0],dato);
 }
 
 template <class T>
@@ -189,7 +201,7 @@ nodot<T>* bt<T>::myend()
 template <class T>
 bool bt<T>::terminate()
 {
-  if(this->current == NULL)
+  if(this->current == nullptr)
     {
       return false;
     }
