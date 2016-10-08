@@ -115,6 +115,8 @@ public:
          << QApplication::translate("MainWindow", "Binary Tree", 0)
          << QApplication::translate("MainWindow", "Red Black Tree", 0)
          << QApplication::translate("MainWindow", "Linked List", 0)
+         << QApplication::translate("MainWindow", "Fibonacci Heap", 0)
+         << QApplication::translate("MainWindow", "Binomial Heap", 0)
         );
         label->setText(QApplication::translate("MainWindow", "Data Estructure:", 0));
         label_3->setText(QApplication::translate("MainWindow", "Word:", 0));

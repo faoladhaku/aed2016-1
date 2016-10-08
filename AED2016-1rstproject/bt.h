@@ -146,6 +146,8 @@ nodot<T>* bt<T>::next()
         {
           nodot<T>* busqueda = this->root;
           padre = get_padre(busqueda,padre->dato[0]);
+          ///nota esto debe ser ocn el operador y el primer dato del padre pero al cambiar crashea y no compila
+          /// gg ez game no mid falta tp
           if(this->current<padre)
             {
               this->current = padre;

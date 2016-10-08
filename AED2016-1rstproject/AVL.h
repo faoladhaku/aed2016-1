@@ -7,30 +7,75 @@ template <class T>
 class leaf
 {
 public:
-    T valor;
+    T valor[2];
     int grado;
     leaf<T> * padre;
     leaf<T> * hijo[2];
-    leaf(T valor)
-    {
-        this->grado = 1;
-        this->valor = valor;
-        this->padre = 0;
-        this->hijo[0] = 0;
-        this->hijo[1] = 0;
-    }
+    leaf(T valor1,T valor2);
+    bool operator< (const string& operado);
+    int menor(leaf<T>*node,string dato1);
 };
+template <class T>
+leaf<T>::leaf(T valor1,T valor2)
+{
+  this->grado = 1;
+  this->valor[0] = valor1;
+  this->valor[1] = valor2;
+  this->padre = 0;
+  this->hijo[0] = 0;
+  this->hijo[1] = 0;
+}
+
+template <class T>
+int leaf<T>::menor(leaf<T> *node, string dato1)
+{
+  string a = node->valor[0];
+  int i = a.size();
+  int y = dato1.size();
+  //cout<<i;
+  if(i<y)
+    {
+      return i;
+    }
+  else if(y<i)
+    {
+      return y;
+    }
+}
+
+template <class T>
+bool leaf<T>::operator< (const string& dato1)
+{
+  int size = menor(this,dato1);
+  for(int i=0;i<size-1;i++)
+    {
+      if(this->valor[0][i]<dato1[i])
+        return true;
+    }
+  return false;
+}
+
 template <class T>
 class AVL
 {
 public:
     leaf<T> * root;
+    leaf<T> * current;
     string ruta;
     AVL()
     {
         this->ruta = "grafico.dot";
         this->root=0;
+        this->current=0;
     }
+    AVL(T dato1,T dato2)
+    {
+      this->ruta = "grafico.dot";
+      leaf<T>* nuevo = new leaf<T>(dato1,dato2);
+      this->root=nuevo;
+      this->current=0;
+    }
+
     bool encontrar(T valor)
     {
         return encontrar(valor,root);
@@ -59,29 +104,29 @@ public:
                 return encontrar_2(valor,aux->hijo[1]);
             }
     }
-    void add(T valor)
+    void add(T valor1, T valor2)
 	{
-		add(valor, root, root);
+		add(valor1, valor2,root, root);
 	}
-	void add(T valor, leaf<T> *& m_leaf, leaf<T> * padre)
+	void add(T valor1, T valor2, leaf<T> *& m_leaf, leaf<T> * padre)
 	{
 		if(!m_leaf)
 		{
-			leaf<T> * nuevo = new leaf<T>(valor);
+			leaf<T> * nuevo = new leaf<T>(valor1,valor2);
 			nuevo->padre= padre;
             m_leaf = nuevo;
             corregir(m_leaf);
 		}
 		else
 		{
-			if(valor==m_leaf->valor) return;
-			if(valor<m_leaf->valor)
+			if(valor1==m_leaf->valor[0]) return;
+			if(m_leaf->operator <(valor1))
             {
-                add(valor,m_leaf->hijo[0],m_leaf);
+                add(valor1,valor2,m_leaf->hijo[1],m_leaf);
             }
 			else
             {
-                add(valor,m_leaf->hijo[1],m_leaf);
+                add(valor1,valor2,m_leaf->hijo[0],m_leaf);
             }
 		}
 	}
@@ -569,5 +614,113 @@ public:
 
 
 	}
+	leaf<T>* mybegin();
+	leaf<T>* next();
+	leaf<T>* myend();
+	int levenshtein(const string &s1, const string &s2);
 
 };
+
+template <class T>
+int AVL<T>::levenshtein(const string &s1, const string &s2)
+{
+  int N1 = s1.size();
+  int N2 = s2.size();
+  int i, j;
+  vector<int> S(N2+1);
+  for ( i = 0; i <= N2; i++ )
+     S[i] = i;
+
+  for ( i = 0; i < N1; i++ )
+   {
+     S[0] = i+1;
+     int corner = i;
+     for ( j = 0; j < N2; j++ )
+     {
+        int upper = S[j+1];
+        if ( s1[i] == s2[j] )
+           S[j+1] = corner;
+        else
+           S[j+1] = min(S[j], min(upper, corner)) + 1;
+        corner = upper;
+     }
+   }
+  return S[N2];
+}
+
+template <class T>
+leaf<T>* AVL<T>::mybegin()
+{
+  this->current = this->root;
+  while(this->current->hijo[0])
+    {
+      this->current = this->current->hijo[0];
+    }
+  return this->current;
+}
+
+template <class T>
+leaf<T>* AVL<T>::myend()
+{
+  this->current = this->root;
+  while(this->current->hijo[1])
+    {
+      this->current = this->current->hijo[1];
+    }
+  return this->current;
+}
+
+template <class T>
+leaf<T>* AVL<T>::next()
+{
+  leaf<T>* padre = this->current->padre;
+  if(this->current == this->root)
+    {
+      if(this->current->hijo[1])
+        {
+          this->current = this->current->hijo[1];
+          while(this->current->hijo[0])
+            {
+              this->current = this->current->hijo[0];
+            }
+          return this->current;
+        }
+    }
+  if(padre->hijo[0] == this->current)
+    {
+      if(this->current->hijo[1])
+        {
+          this->current = this->current->hijo[1];
+          while(this->current->hijo[0])
+            {
+              this->current = this->current->hijo[0];
+            }
+          return this->current;
+        }
+      this->current = padre;
+      return this->current;
+    }
+  if(padre->hijo[1] == this->current)
+    {
+      if(this->current->hijo[1])
+        {
+          this->current = this->current->hijo[1];
+          while(this->current->hijo[0])
+            {
+              this->current = this->current->hijo[0];
+            }
+          return this->current;
+        }
+      while(padre!=this->root)
+        {
+          padre = padre->padre;
+          if(this->current<padre)
+            {
+              this->current = padre;
+              return this->current;
+            }
+        }
+    }
+  this->current=nullptr;
+  return this->current;
+}

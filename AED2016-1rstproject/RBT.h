@@ -5,37 +5,85 @@ using namespace std;
 #define ROJO 1
 #define NEGRO 0
 template <class T>
-class leaf
+class leaf1
 {
 public:
-    T valor;
+    T valor[2];
     bool color;
-    leaf<T> * padre;
-    leaf<T> * hijo[2];
-    leaf(T valor)
-    {
-        this->color = ROJO;
-        this->valor = valor;
-        this->padre = 0;
-        this->hijo[0] = 0;
-        this->hijo[1] = 0;
-    }
+    leaf1<T> * padre;
+    leaf1<T> * hijo[2];
+    leaf1(T valor1, T valor2);
+    int menor(leaf1<T>*node,string dato1);
+    bool operator< (const string& dato1);
 };
+
+template <class T>
+leaf1<T>::leaf1(T valor1,T valor2)
+{
+
+  this->color = ROJO;
+  this->valor[0] = valor1;
+  this->valor[1] = valor2;
+  this->padre = 0;
+  this->hijo[0] = 0;
+  this->hijo[1] = 0;
+}
+
+template <class T>
+int leaf1<T>::menor(leaf1<T> *node, string dato1)
+{
+  string a = node->valor[0];
+  int i = a.size();
+  int y = dato1.size();
+  //cout<<i;
+  if(i<y)
+    {
+      return i;
+    }
+  else if(y<i)
+    {
+      return y;
+    }
+}
+
+template <class T>
+bool leaf1<T>::operator< (const string& dato1)
+{
+  int size = menor(this,dato1);
+  for(int i=0;i<size-1;i++)
+    {
+      if(this->valor[0][i]<dato1[i])
+        return true;
+    }
+  return false;
+}
+
 template <class T>
 class RBT
 {
 public:
-    leaf<T> * root;
-    leaf<T> * NIL;
+    leaf1<T> * root;
+    leaf1<T> * current;
+    leaf1<T> * NIL;
     string ruta;
+
     RBT()
     {
         ruta = "grafico.dot";
         this->root=0;
-        NIL = new leaf<T>(0);
+        NIL = new leaf1<T>(0,0);
         NIL->color=NEGRO;
-        NIL->valor=-65;
+        NIL->valor[0]=-65;
     }
+    RBT(T dato1, T dato2)
+    {
+        ruta = "grafico.dot";
+        this->root=new leaf1<T>(dato1,dato2);
+        NIL = new leaf1<T>(0,0);
+        NIL->color=NEGRO;
+        NIL->valor[0]=-65;
+    }
+
     bool encontrar(T valor)
     {
         return encontrar(valor,root);
@@ -54,7 +102,7 @@ public:
     {
         return encontrar_2(valor,root);
     }
-    leaf<T>* encontrar_2(T valor, leaf<T> * aux)
+    leaf<T>* encontrar_2(T valor, leaf1<T> * aux)
     {
             if(!aux) return 0;
             if(valor==aux->valor) return aux;
@@ -65,15 +113,15 @@ public:
             }
     }
 
-    void add(T valor)
+    void add(T valor1, T valor2)
 	{
-		add(valor, root, root);
+		add(valor1,valor2, root, root);
 	}
-	void add(T valor, leaf<T> *& m_leaf, leaf<T> * padre)
+	void add(T valor1,T valor2, leaf1<T> *& m_leaf, leaf1<T> * padre)
 	{
 		if(!m_leaf || m_leaf==NIL)
 		{
-			leaf<T> * nuevo = new leaf<T>(valor);
+			leaf1<T> * nuevo = new leaf1<T>(valor1,valor2);
 			nuevo->hijo[0]=NIL;
 			nuevo->hijo[1]=NIL;
 			nuevo->padre= padre;
@@ -82,18 +130,18 @@ public:
 		}
 		else
 		{
-			if(valor==m_leaf->valor) return;
-			if(valor<m_leaf->valor)
+			if(valor1==m_leaf->valor[0]) return;
+			if(m_leaf->operator <(valor2))
             {
-                add(valor,m_leaf->hijo[0],m_leaf);
+                add(valor1,valor2,m_leaf->hijo[1],m_leaf);
             }
 			else
             {
-                add(valor,m_leaf->hijo[1],m_leaf);
+                add(valor1,valor2,m_leaf->hijo[0],m_leaf);
             }
 		}
 	}
-	void corregir(leaf<T> *& nodo)
+	void corregir(leaf1<T> *& nodo)
 	{
         if(!nodo) return;
 	    if(nodo == root)
@@ -153,7 +201,7 @@ public:
         }
         return;
 	}
-	void verificarColor(leaf<T> *& nodo)
+	void verificarColor(leaf1<T> *& nodo)
 	{
 	    if(!nodo) return;
 	    nodo->color=NEGRO;
@@ -166,7 +214,7 @@ public:
 	///pos es la posicion del padre segun el abuelo
 	/// 1 si esta a la derecha del abuelo
 	/// 0 si esta a la izquiera del abuelo
-	void rotacionDerecha(leaf<T> *& nodo, bool pos)
+	void rotacionDerecha(leaf1<T> *& nodo, bool pos)
 	{
 
         if(nodo->padre->padre)
@@ -190,7 +238,7 @@ public:
 
 
 	}
-	void rotacionIzquierda(leaf<T> * nodo, bool pos)
+	void rotacionIzquierda(leaf1<T> * nodo, bool pos)
 	{
 	    if(nodo->padre->padre)
         {
@@ -211,7 +259,7 @@ public:
         }
 
 	}
-	leaf<T> * tio(leaf<T> *& nodo)
+	leaf1<T> * tio(leaf1<T> *& nodo)
 	{
         if(nodo->padre->padre->hijo[0]== nodo->padre)
             return nodo->padre->padre->hijo[1];
@@ -226,7 +274,7 @@ public:
         fichero->close();
 
 	}
-	void print(leaf<T> * aux, ofstream * archivo)
+	void print(leaf1<T> * aux, ofstream * archivo)
 	{
 	    if(!aux)return;
 
@@ -248,5 +296,111 @@ public:
 
 
 	}
-
+	leaf1<T>* mybegin();
+	leaf1<T>* next();
+	leaf1<T>* myend();
+	int levenshtein(const string &s1, const string &s2);
 };
+
+template <class T>
+leaf1<T>* RBT<T>::mybegin()
+{
+  this->current = this->root;
+  while(this->current->hijo[0])
+    {
+      this->current = this->current->hijo[0];
+    }
+  return this->current;
+}
+
+template <class T>
+leaf1<T>* RBT<T>::myend()
+{
+  this->current = this->root;
+  while(this->current->hijo[1])
+    {
+      this->current = this->current->hijo[1];
+    }
+  return this->current;
+}
+template <class T>
+leaf1<T>* RBT<T>::next()
+{
+  leaf1<T>* padre = this->current->padre;
+  if(this->current == this->root)
+    {
+      if(this->current->hijo[1])
+        {
+          this->current = this->current->hijo[1];
+          while(this->current->hijo[0])
+            {
+              this->current = this->current->hijo[0];
+            }
+          return this->current;
+        }
+    }
+  if(padre->hijo[0] == this->current)
+    {
+      if(this->current->hijo[1])
+        {
+          this->current = this->current->hijo[1];
+          while(this->current->hijo[0])
+            {
+              this->current = this->current->hijo[0];
+            }
+          return this->current;
+        }
+      this->current = padre;
+      return this->current;
+    }
+  if(padre->hijo[1] == this->current)
+    {
+      if(this->current->hijo[1])
+        {
+          this->current = this->current->hijo[1];
+          while(this->current->hijo[0])
+            {
+              this->current = this->current->hijo[0];
+            }
+          return this->current;
+        }
+      while(padre!=this->root)
+        {
+          padre = padre->padre;
+          if(this->current<padre)
+            {
+              this->current = padre;
+              return this->current;
+            }
+        }
+    }
+  this->current=nullptr;
+  return this->current;
+}
+
+template <class T>
+int RBT<T>::levenshtein(const string &s1, const string &s2)
+{
+  int N1 = s1.size();
+  int N2 = s2.size();
+  int i, j;
+  vector<int> S(N2+1);
+  for ( i = 0; i <= N2; i++ )
+     S[i] = i;
+
+  for ( i = 0; i < N1; i++ )
+   {
+     S[0] = i+1;
+     int corner = i;
+     for ( j = 0; j < N2; j++ )
+     {
+        int upper = S[j+1];
+        if ( s1[i] == s2[j] )
+           S[j+1] = corner;
+        else
+           S[j+1] = min(S[j], min(upper, corner)) + 1;
+        corner = upper;
+     }
+   }
+  return S[N2];
+}
