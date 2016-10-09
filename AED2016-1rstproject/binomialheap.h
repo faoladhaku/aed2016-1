@@ -101,7 +101,10 @@ void binomialheap<T>::merge()
                   (*next_x)->grado +=1;
               }
       }
-      x = next(x,1);
+      else if( (*next_x)->grado == (*x)->grado and (*next_x)->grado = (*siblings_nextx)->grado)
+      {
+         x = next(x,1);
+      }
   }
 }
 
