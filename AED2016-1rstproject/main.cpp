@@ -4,7 +4,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
-
+#include <list>
 #include <iostream>
 
 
@@ -13,6 +13,7 @@ using namespace std;
 #include "list.h"
 #include "AVL.h"
 #include "RBT.h"
+#include "binomialheap.h"
 int main(int argc, char *argv[])
 {
   bt<string> hola("yisus","god");
@@ -41,6 +42,9 @@ int main(int argc, char *argv[])
   //holona.mybegin();
   //holona.next();
   //holona.myend();
+  binomialheap<int> hole;
+  hole.insert(2);
+  hole.insert(10);
   QApplication a(argc, argv);
   MainWindow w;
   w.show();

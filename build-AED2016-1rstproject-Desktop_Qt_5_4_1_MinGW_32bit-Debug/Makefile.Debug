@@ -56,7 +56,8 @@ DIST          =  ..\AED2016-1rstproject\mainwindow.h \
 		..\AED2016-1rstproject\bt.h \
 		..\AED2016-1rstproject\RBT.h \
 		..\AED2016-1rstproject\AVL.h \
-		..\AED2016-1rstproject\FibonacciHeap.h ..\AED2016-1rstproject\main.cpp \
+		..\AED2016-1rstproject\FibonacciHeap.h \
+		..\AED2016-1rstproject\binomialheap.h ..\AED2016-1rstproject\main.cpp \
 		..\AED2016-1rstproject\mainwindow.cpp
 QMAKE_TARGET  = AED2016-1rstproject
 DESTDIR        = debug\ #avoid trailing-slash linebreak
@@ -371,7 +372,10 @@ debug/main.o: ../AED2016-1rstproject/main.cpp ../AED2016-1rstproject/mainwindow.
 		../AED2016-1rstproject/bt.h \
 		../AED2016-1rstproject/nodot.h \
 		../AED2016-1rstproject/list.h \
-		../AED2016-1rstproject/nodo.h
+		../AED2016-1rstproject/nodo.h \
+		../AED2016-1rstproject/AVL.h \
+		../AED2016-1rstproject/RBT.h \
+		../AED2016-1rstproject/binomialheap.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\AED2016-1rstproject\main.cpp
 
 debug/mainwindow.o: ../AED2016-1rstproject/mainwindow.cpp ../AED2016-1rstproject/mainwindow.h \
