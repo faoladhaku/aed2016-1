@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 using namespace std;
 #define ROJO 1
 #define NEGRO 0
@@ -12,6 +13,13 @@ public:
     bool color;
     leaf1<T> * padre;
     leaf1<T> * hijo[2];
+    leaf1()
+    {
+     this->color = ROJO;
+     this->padre = 0;
+     this->hijo[0] = 0;
+     this->hijo[1] = 0;
+    }
     leaf1(T valor1, T valor2);
     int menor(leaf1<T>*node,string dato1);
     bool operator< (const string& dato1);
@@ -71,24 +79,26 @@ public:
     {
         ruta = "grafico.dot";
         this->root=0;
-        NIL = new leaf1<T>(0,0);
+        NIL = new leaf1<T>();
         NIL->color=NEGRO;
-        NIL->valor[0]=-65;
+        //NIL->valor[0]="";     //this change dependes of the type
+        //NIL->valor[1]="";
     }
     RBT(T dato1, T dato2)
     {
         ruta = "grafico.dot";
         this->root=new leaf1<T>(dato1,dato2);
-        NIL = new leaf1<T>(0,0);
+        NIL = new leaf1<T>();
         NIL->color=NEGRO;
-        NIL->valor[0]=-65;
+        //NIL->valor[0]="";
+        //NIL->valor[1]="";
     }
 
     bool encontrar(T valor)
     {
         return encontrar(valor,root);
     }
-    bool encontrar(T valor, leaf<T> * aux)
+    bool encontrar(T valor, leaf1<T> * aux)
     {
             if(!aux) return 0;
             if(valor==aux->valor) return 1;
@@ -98,11 +108,11 @@ public:
                 return encontrar(valor,aux->hijo[1]);
             }
     }
-    leaf<T>* encontrar_2(T valor)
+    leaf1<T>* encontrar_2(T valor)
     {
         return encontrar_2(valor,root);
     }
-    leaf<T>* encontrar_2(T valor, leaf1<T> * aux)
+    leaf1<T>* encontrar_2(T valor, leaf1<T> * aux)
     {
             if(!aux) return 0;
             if(valor==aux->valor) return aux;
@@ -119,37 +129,46 @@ public:
 	}
 	void add(T valor1,T valor2, leaf1<T> *& m_leaf, leaf1<T> * padre)
 	{
+	   
+	   //cout<<m_leaf->valor[0]<<endl;
+	   cout<<valor1<<endl;
 		if(!m_leaf || m_leaf==NIL)
 		{
+		   
 			leaf1<T> * nuevo = new leaf1<T>(valor1,valor2);
 			nuevo->hijo[0]=NIL;
 			nuevo->hijo[1]=NIL;
 			nuevo->padre= padre;
-            m_leaf = nuevo;
-            corregir(m_leaf);
+         m_leaf = nuevo;
+      
+         corregir(m_leaf);
 		}
 		else
 		{
 			if(valor1==m_leaf->valor[0]) return;
-			if(m_leaf->operator <(valor2))
+			if(m_leaf->operator <(valor1))
             {
+              
                 add(valor1,valor2,m_leaf->hijo[1],m_leaf);
             }
 			else
             {
+           
                 add(valor1,valor2,m_leaf->hijo[0],m_leaf);
             }
 		}
 	}
 	void corregir(leaf1<T> *& nodo)
 	{
-        if(!nodo) return;
+	   
+       if(!nodo) return;
 	    if(nodo == root)
         {
             nodo->color = NEGRO;
             return;
         }
         if(nodo->color==NEGRO) corregir(nodo->padre); /// tal vez no sea necesario
+	
 	    if(nodo->padre->color==ROJO)
         {
             if(tio(nodo)->color==ROJO)
@@ -199,6 +218,7 @@ public:
                 }
 
         }
+        
         return;
 	}
 	void verificarColor(leaf1<T> *& nodo)
@@ -280,20 +300,16 @@ public:
 
 	    if(aux->hijo[0] && aux->hijo[0]!= NIL)
         {
-            *archivo<<aux->valor<<"->"<<aux->hijo[0]->valor<<endl;
+            *archivo<<aux->valor[0]<<"->"<<aux->hijo[0]->valor[0]<<endl;
             print(aux->hijo[0],archivo);
 	    }
 	    if(aux->hijo[1] && aux->hijo[1]!= NIL)
 	    {
-	        *archivo<<aux->valor<<"->"<<aux->hijo[1]->valor<<endl;
+	        *archivo<<aux->valor[0]<<"->"<<aux->hijo[1]->valor[0]<<endl;
 	        print(aux->hijo[1],archivo);
 	    }
-	    if(!aux->color) *archivo<<aux->valor<<" [color=black];"<<endl;
-        else *archivo<<aux->valor<<" [color=red];"<<endl;
-
-
-
-
+	    if(!aux->color) *archivo<<aux->valor[0]<<" [color=black];"<<endl;
+        else *archivo<<aux->valor[0]<<" [color=red];"<<endl;
 
 	}
 	leaf1<T>* mybegin();
@@ -374,7 +390,7 @@ leaf1<T>* RBT<T>::next()
             }
         }
     }
-  this->current=nullptr;
+  this->current=0;
   return this->current;
 }
 
