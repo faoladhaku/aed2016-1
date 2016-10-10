@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.3.1, 2016-10-09T12:00:43. -->
+<!-- Written by QtCreator 3.3.1, 2016-10-10T09:03:52. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -225,8 +225,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">AED2016-1rstproject</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/Eduardo/Desktop/aed2016-1/AED2016-1rstproject/AED2016-1rstproject.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">AED2016-1rstproject2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/Eduardo/Desktop/AED2016-1rstproject/AED2016-1rstproject.pro</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">AED2016-1rstproject.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
