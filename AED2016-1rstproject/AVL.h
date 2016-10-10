@@ -122,11 +122,11 @@ public:
 			if(valor1==m_leaf->valor[0]) return;
 			if(m_leaf->operator <(valor1))
             {
-                add(valor1,valor2,m_leaf->hijo[1],m_leaf);
+                add(valor1,valor2,m_leaf->hijo[0],m_leaf);
             }
 			else
             {
-                add(valor1,valor2,m_leaf->hijo[0],m_leaf);
+                add(valor1,valor2,m_leaf->hijo[1],m_leaf);
             }
 		}
 	}
@@ -147,6 +147,7 @@ public:
                 {
                     if(abs(nodo->grado-bro->grado)>=2)
                     {
+                        nodo->padre->grado++;
                         equilibrar(nodo);
                         return;
 
@@ -257,9 +258,11 @@ public:
             case 1:
 
                 nodo->hijo[0]->grado-=2;
+                break;
             case 2:
                 nodo->padre->grado++;
                 nodo->padre->hijo[1]->grado-=2;
+                break;
             case 3:
 
                 nodo->padre->grado++;
@@ -582,8 +585,10 @@ public:
 	}
 	void graficar()
 	{
+        cout<<"hello"<<endl;
         ofstream * fichero = new ofstream (this->ruta);
         *fichero<<"digraph G {"<<endl;
+        cout<<"dfsd"<<endl;
         print(root,fichero);
         *fichero<<"}";
         fichero->close();
@@ -597,13 +602,13 @@ public:
 	    if(aux->hijo[0]!=0)
         {
 
-            *archivo<<aux->valor<<"->"<<aux->hijo[0]->valor<<endl;
+            *archivo<<"g"<<aux->grado<<aux->valor[0]<<"->"<<"g"<<aux->hijo[0]->grado<<aux->hijo[0]->valor[0]<<endl;
             print(aux->hijo[0],archivo);
 	    }
 	    if(aux->hijo[1]!=0 )
 	    {
 
-	        *archivo<<aux->valor<<"->"<<aux->hijo[1]->valor<<endl;
+            *archivo<<"g"<<aux->grado<<aux->valor[0]<<"->"<<"g"<<aux->hijo[1]->grado<<aux->hijo[1]->valor[0]<<endl;
 	        print(aux->hijo[1],archivo);
 	    }
 	    //if(!aux->color) *archivo<<aux->valor<<" [color=black,style=filled,fontcolor=white];"<<endl;
